@@ -38,8 +38,7 @@ export default async function HomePage() {
               </h1>
 
               <p className="mt-6 max-w-xl text-base leading-8 text-slate-300 sm:text-lg">
-                {settings?.heroSubtitle ||
-                  "Поставляем арматуру, металлопрокат и профиль напрямую от поставщиков. Актуальные остатки, понятная витрина и быстрые заявки."}
+                Поставляем арматуру, металлопрокат и профиль напрямую от поставщиков. Актуальные остатки, понятная витрина и быстрые заявки.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">

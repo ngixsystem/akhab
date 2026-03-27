@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, Phone, ShieldCheck, ShoppingCart, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { BASE_PATH } from "@/lib/constants";
@@ -17,6 +17,7 @@ const links = [
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const router = useRouter();
   const { totalItems } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -24,15 +25,26 @@ export function SiteHeader() {
     setMenuOpen(false);
   }, [pathname]);
 
+  const homeHref = `${BASE_PATH}` || "/";
+
+  function handleHomeClick(event?: React.MouseEvent) {
+    if (pathname === homeHref || pathname === "/") {
+      event?.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setMenuOpen(false);
+      router.refresh();
+    }
+  }
+
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-[#0b1220]/95 text-white backdrop-blur-xl">
       <div className="container-shell flex min-h-16 items-center justify-between gap-3 py-3 lg:min-h-20 lg:gap-6">
-        <Link href={`${BASE_PATH}`} className="flex min-w-0 items-center gap-3">
+        <Link href={homeHref} className="flex min-w-0 items-center gap-3" onClick={handleHomeClick}>
           <div className="h-8 w-1 rounded-full bg-gradient-steel lg:h-10" />
           <div className="min-w-0">
-            <div className="truncate text-xl leading-none tracking-[0.18em] sm:text-2xl lg:text-3xl">METIS</div>
-            <div className="mt-1 hidden text-[10px] uppercase tracking-[0.34em] text-slate-400 sm:block sm:text-xs">
-              steel supply storefront
+            <div className="truncate text-lg leading-none tracking-[0.14em] sm:text-xl lg:text-2xl">OOO METIKS</div>
+            <div className="mt-1 hidden text-[10px] uppercase tracking-[0.24em] text-slate-400 sm:block sm:text-xs">
+              АРМАТУРА ВЫСШЕГО КАЧЕСТВА
             </div>
           </div>
         </Link>
@@ -42,6 +54,7 @@ export function SiteHeader() {
             <Link
               key={link.href}
               href={link.href}
+              onClick={link.href === homeHref ? handleHomeClick : undefined}
               className={cn(
                 "text-sm uppercase tracking-[0.2em] text-slate-400 transition-colors hover:text-white",
                 pathname === link.href && "text-white"
@@ -98,6 +111,7 @@ export function SiteHeader() {
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={link.href === homeHref ? handleHomeClick : undefined}
                 className={cn(
                   "rounded-sm border border-transparent px-3 py-3 text-sm uppercase tracking-[0.2em] text-slate-300 transition hover:border-border hover:bg-white/5",
                   pathname === link.href && "border-border bg-white/5 text-white"
