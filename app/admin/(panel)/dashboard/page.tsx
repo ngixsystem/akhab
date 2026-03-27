@@ -1,5 +1,5 @@
 import { formatDistanceToNow } from "date-fns";
-import { Bell, Box, ClipboardList, Package } from "lucide-react";
+import { Bell, Box, ClipboardList, Factory, Package } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { getDashboardData } from "@/lib/data";
 
@@ -14,9 +14,10 @@ export default async function AdminDashboardPage() {
         <Badge>Dashboard</Badge>
         <h1 className="mt-4 text-4xl font-semibold text-slate-950">Операционная сводка</h1>
       </div>
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-5">
         {[
           { label: "Products", value: data.products, icon: Package },
+          { label: "Suppliers", value: data.suppliers, icon: Factory },
           { label: "Orders", value: data.orders, icon: ClipboardList },
           { label: "Unread notifications", value: data.notifications, icon: Bell },
           { label: "Available stock", value: data.inventory._sum.available ?? 0, icon: Box }

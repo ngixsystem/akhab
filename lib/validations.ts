@@ -23,9 +23,17 @@ export const productAttributeSchema = z.object({
   sortOrder: z.number().int().min(0).default(0)
 });
 
+export const supplierSchema = z.object({
+  slug: z.string().min(2),
+  name: z.string().min(2),
+  description: z.string().optional().nullable(),
+  isActive: z.boolean().default(true)
+});
+
 export const productSchema = z
   .object({
     slug: z.string().min(2),
+    supplierId: z.string().min(1, "Supplier is required."),
     companyName: z.string().min(2),
     productType: productTypeEnum,
     title: z.string().min(2),

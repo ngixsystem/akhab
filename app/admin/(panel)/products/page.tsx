@@ -26,6 +26,7 @@ export default async function AdminProductsPage() {
             <thead className="bg-slate-50 text-left text-slate-500">
               <tr>
                 <th className="px-6 py-4">Название</th>
+                <th className="px-6 py-4">Поставщик</th>
                 <th className="px-6 py-4">Тип</th>
                 <th className="px-6 py-4">Остаток</th>
                 <th className="px-6 py-4">Цена</th>
@@ -37,6 +38,7 @@ export default async function AdminProductsPage() {
               {products.map((product) => (
                 <tr key={product.id} className="border-t border-slate-100">
                   <td className="px-6 py-4 font-medium text-slate-950">{product.title}</td>
+                  <td className="px-6 py-4 text-slate-600">{product.supplier.name}</td>
                   <td className="px-6 py-4">{formatProductType(product.productType)}</td>
                   <td className="px-6 py-4">{product.inventory?.available ?? 0}</td>
                   <td className="px-6 py-4">

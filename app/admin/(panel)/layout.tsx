@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Bell, Boxes, LayoutDashboard, Package2, Settings, ShoppingCart } from "lucide-react";
+import { Bell, Boxes, Factory, LayoutDashboard, Package2, Settings, ShoppingCart } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { requireAdminPage } from "@/lib/server";
 import { BASE_PATH } from "@/lib/constants";
@@ -8,6 +8,7 @@ export const dynamic = "force-dynamic";
 
 const items = [
   { href: `${BASE_PATH}/admin/dashboard`, label: "Dashboard", icon: LayoutDashboard },
+  { href: `${BASE_PATH}/admin/suppliers`, label: "Suppliers", icon: Factory },
   { href: `${BASE_PATH}/admin/products`, label: "Products", icon: Package2 },
   { href: `${BASE_PATH}/admin/orders`, label: "Orders", icon: ShoppingCart },
   { href: `${BASE_PATH}/admin/inventory`, label: "Inventory", icon: Boxes },

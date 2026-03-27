@@ -20,6 +20,10 @@ type ProductCardProps = {
     length?: string | null;
     pricePerPiece?: number | string | { toString(): string } | null;
     pricePerTon?: number | string | { toString(): string } | null;
+    supplier?: {
+      slug: string;
+      name: string;
+    };
     inventory: {
       available: number;
     } | null;
@@ -59,6 +63,7 @@ export function ProductCard({ product }: ProductCardProps) {
         </div>
 
         <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
+          {product.supplier ? <div className="mb-2 text-xs uppercase tracking-[0.18em] text-slate-300">{product.supplier.name}</div> : null}
           <h3 className="text-3xl leading-[0.92] text-white sm:text-[2.1rem]">{product.title}</h3>
         </div>
       </div>

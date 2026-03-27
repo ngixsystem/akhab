@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { ProductForm } from "@/components/admin/product-form";
 import { Badge } from "@/components/ui/badge";
-import { getProductById } from "@/lib/data";
+import { getProductById, getSuppliers } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
 
@@ -11,12 +11,13 @@ export default async function EditProductPage({
   params: Promise<{ id: string }>;
 }>) {
   const { id } = await params;
-  const product = await getProductById(id);
+  const [product, suppliers] = await Promise.all([getProductById(id), getSuppliers()]);
   if (!product) notFound();
 
   const initialData = {
     id: product.id,
     slug: product.slug,
+    supplierId: product.supplierId,
     companyName: product.companyName,
     productType: product.productType,
     title: product.title,
@@ -44,7 +45,7 @@ export default async function EditProductPage({
         <Badge>Edit Product</Badge>
         <h1 className="mt-4 text-4xl font-semibold text-slate-950">{product.title}</h1>
       </div>
-      <ProductForm initialData={initialData} />
+      <ProductForm initialData={initialData} suppliers={suppliers} />
     </div>
   );
 }

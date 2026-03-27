@@ -34,12 +34,46 @@ async function main() {
     }
   });
 
+  const metiksSupplier = await prisma.supplier.upsert({
+    where: { slug: "metiks" },
+    update: {
+      name: "OOO METIKS",
+      description: "Основной поставщик арматуры и металлопроката по Ташкенту и области.",
+      isActive: true
+    },
+    create: {
+      slug: "metiks",
+      name: "OOO METIKS",
+      description: "Основной поставщик арматуры и металлопроката по Ташкенту и области.",
+      isActive: true
+    }
+  });
+
+  const profileSupplier = await prisma.supplier.upsert({
+    where: { slug: "steel-profile-hub" },
+    update: {
+      name: "Steel Profile Hub",
+      description: "Профильные трубы и сопутствующий прокат для каркасных и производственных задач.",
+      isActive: true
+    },
+    create: {
+      slug: "steel-profile-hub",
+      name: "Steel Profile Hub",
+      description: "Профильные трубы и сопутствующий прокат для каркасных и производственных задач.",
+      isActive: true
+    }
+  });
+
   const rebar = await prisma.product.upsert({
     where: { slug: "armatura-a500c-12mm" },
-    update: {},
+    update: {
+      supplierId: metiksSupplier.id,
+      companyName: metiksSupplier.name
+    },
     create: {
       slug: "armatura-a500c-12mm",
-      companyName: "OOO METIKS",
+      supplierId: metiksSupplier.id,
+      companyName: metiksSupplier.name,
       productType: "REBAR",
       title: "Арматура A500C 12 мм",
       description: "Надежная арматура для монолитных работ, частного и коммерческого строительства.",
@@ -69,10 +103,14 @@ async function main() {
 
   const profile = await prisma.product.upsert({
     where: { slug: "profil-truba-40x20x2" },
-    update: {},
+    update: {
+      supplierId: profileSupplier.id,
+      companyName: profileSupplier.name
+    },
     create: {
       slug: "profil-truba-40x20x2",
-      companyName: "OOO METIKS",
+      supplierId: profileSupplier.id,
+      companyName: profileSupplier.name,
       productType: "PROFILE",
       title: "Профильная труба 40x20x2",
       description: "Универсальный профиль для каркасных конструкций, навесов и производственных проектов.",

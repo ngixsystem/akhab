@@ -33,10 +33,10 @@ export default async function ProductDetailPage({
       <main className="container-shell py-14 lg:py-16">
         <div className="mb-8">
           <Link
-            href={`${BASE_PATH}/catalog`}
+            href={`${BASE_PATH}/catalog/${product.supplier.slug}`}
             className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.18em] text-slate-400 transition hover:text-white"
           >
-            <ArrowLeft className="h-4 w-4" /> Назад в каталог
+            <ArrowLeft className="h-4 w-4" /> Назад к {product.supplier.name}
           </Link>
         </div>
 
@@ -59,6 +59,7 @@ export default async function ProductDetailPage({
           <div className="space-y-6">
             <div className="flex flex-wrap gap-2">
               <Badge className="border-blue-500/20 bg-blue-500/10 text-blue-100">{formatProductType(product.productType)}</Badge>
+              <Badge className="border-white/10 bg-white/5 text-slate-200">{product.supplier.name}</Badge>
               <Badge className={(product.inventory?.available ?? 0) > 0 ? "bg-emerald-500/15 text-emerald-300" : "bg-slate-700 text-slate-200"}>
                 {(product.inventory?.available ?? 0) > 0 ? "В наличии" : "Под заказ"}
               </Badge>

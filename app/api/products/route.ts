@@ -4,10 +4,22 @@ import { prisma } from "@/lib/prisma";
 import { toProductPayload } from "@/lib/data";
 import { productSchema } from "@/lib/validations";
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const supplierSlug = searchParams.get("supplier");
+
   const products = await prisma.product.findMany({
-    where: { isActive: true },
+    where: {
+      isActive: true,
+      supplier: supplierSlug
+        ? {
+            slug: supplierSlug,
+            isActive: true
+          }
+        : undefined
+    },
     include: {
+      supplier: true,
       inventory: true,
       attributes: { orderBy: { sortOrder: "asc" } }
     },
@@ -23,6 +35,9 @@ export async function POST(request: Request) {
     const body = await request.json();
     const parsed = productSchema.safeParse(body);
     if (!parsed.success) return apiError(parsed.error.issues[0]?.message || "Invalid payload.");
+
+    const supplier = await prisma.supplier.findUnique({ where: { id: parsed.data.supplierId } });
+    if (!supplier) return apiError("Supplier not found.", 404);
 
     const data = toProductPayload(parsed.data);
     const product = await prisma.product.create({
@@ -40,6 +55,7 @@ export async function POST(request: Request) {
         }
       },
       include: {
+        supplier: true,
         attributes: true,
         inventory: true
       }

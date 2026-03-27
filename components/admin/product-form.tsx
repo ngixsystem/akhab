@@ -10,9 +10,17 @@ import { Textarea } from "@/components/ui/textarea";
 import { BASE_PATH, PRODUCT_TYPE_OPTIONS } from "@/lib/constants";
 import { slugify } from "@/lib/utils";
 
+type SupplierOption = {
+  id: string;
+  name: string;
+  slug: string;
+  isActive: boolean;
+};
+
 type ProductFormValue = {
   id?: string;
   slug: string;
+  supplierId: string;
   companyName: string;
   productType: "REBAR" | "PROFILE";
   title: string;
@@ -32,6 +40,7 @@ type ProductFormValue = {
 
 const emptyForm: ProductFormValue = {
   slug: "",
+  supplierId: "",
   companyName: "OOO METIKS",
   productType: "REBAR",
   title: "",
@@ -49,9 +58,15 @@ const emptyForm: ProductFormValue = {
   attributes: [{ key: "", value: "", sortOrder: 0 }]
 };
 
-export function ProductForm({ initialData }: Readonly<{ initialData?: ProductFormValue }>) {
+export function ProductForm({
+  initialData,
+  suppliers
+}: Readonly<{
+  initialData?: ProductFormValue;
+  suppliers: SupplierOption[];
+}>) {
   const router = useRouter();
-  const [form, setForm] = useState<ProductFormValue>(initialData ?? emptyForm);
+  const [form, setForm] = useState<ProductFormValue>(initialData ?? { ...emptyForm, supplierId: suppliers[0]?.id || "" });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
@@ -158,6 +173,16 @@ export function ProductForm({ initialData }: Readonly<{ initialData?: ProductFor
           </Field>
           <Field label="Slug">
             <Input value={form.slug} onChange={(e) => setForm((current) => ({ ...current, slug: e.target.value }))} />
+          </Field>
+          <Field label="Поставщик">
+            <Select value={form.supplierId} onChange={(e) => setForm((current) => ({ ...current, supplierId: e.target.value }))} required>
+              <option value="">Выберите поставщика</option>
+              {suppliers.map((supplier) => (
+                <option key={supplier.id} value={supplier.id}>
+                  {supplier.name}{supplier.isActive ? "" : " (скрыт)"}
+                </option>
+              ))}
+            </Select>
           </Field>
           <Field label="Компания">
             <Input
@@ -349,13 +374,14 @@ export function ProductForm({ initialData }: Readonly<{ initialData?: ProductFor
         {error ? <p className="mt-4 text-sm text-rose-600">{error}</p> : null}
         {success ? <p className="mt-4 text-sm text-emerald-600">{success}</p> : null}
         <div className="mt-6 flex gap-3">
-          <Button type="submit" variant="accent" disabled={loading}>
+          <Button type="submit" variant="accent" disabled={loading || suppliers.length === 0}>
             {loading ? "Сохранение..." : "Сохранить"}
           </Button>
           <Button type="button" variant="secondary" onClick={() => router.push(`${BASE_PATH}/admin/products`)}>
             Отмена
           </Button>
         </div>
+        {suppliers.length === 0 ? <p className="mt-4 text-sm text-amber-600">Сначала создайте хотя бы одного поставщика.</p> : null}
       </div>
     </form>
   );

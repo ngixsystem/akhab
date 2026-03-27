@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Search, SlidersHorizontal } from "lucide-react";
 import { ProductCard } from "./product-card";
+import { BASE_PATH } from "@/lib/constants";
 
 type Product = {
   id: string;
@@ -16,9 +18,22 @@ type Product = {
   pricePerPiece: number | string | { toString(): string } | null;
   pricePerTon: number | string | { toString(): string } | null;
   inventory: { available: number } | null;
+  supplier: {
+    id: string;
+    slug: string;
+    name: string;
+  };
 };
 
-export function CatalogClient({ products }: Readonly<{ products: Product[] }>) {
+export function CatalogClient({
+  products,
+  supplierName,
+  supplierSlug
+}: Readonly<{
+  products: Product[];
+  supplierName?: string | null;
+  supplierSlug?: string | null;
+}>) {
   const [search, setSearch] = useState("");
   const [selectedSize, setSelectedSize] = useState("Все");
   const [stockOnly, setStockOnly] = useState(false);
@@ -34,7 +49,7 @@ export function CatalogClient({ products }: Readonly<{ products: Product[] }>) {
     return products
       .filter((product) => {
         if (!query) return true;
-        return [product.title, product.description, product.productType, product.size || "", product.length || ""]
+        return [product.title, product.description, product.productType, product.size || "", product.length || "", product.supplier.name]
           .join(" ")
           .toLowerCase()
           .includes(query);
@@ -46,15 +61,25 @@ export function CatalogClient({ products }: Readonly<{ products: Product[] }>) {
   return (
     <>
       <div className="mt-10 flex flex-col gap-4">
-        <div className="relative max-w-xl">
-          <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
-          <input
-            type="text"
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            placeholder="Поиск по названию, типу, описанию..."
-            className="input pl-11"
-          />
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="relative max-w-xl flex-1">
+            <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+            <input
+              type="text"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder="Поиск по названию, типу, описанию..."
+              className="input pl-11"
+            />
+          </div>
+          {supplierSlug ? (
+            <Link
+              href={`${BASE_PATH}/catalog`}
+              className="inline-flex items-center justify-center rounded-sm border border-border bg-white/5 px-4 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-slate-300 transition hover:border-slate-500/40 hover:text-white"
+            >
+              Сменить поставщика
+            </Link>
+          ) : null}
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
@@ -75,7 +100,10 @@ export function CatalogClient({ products }: Readonly<{ products: Product[] }>) {
         </div>
       </div>
 
-      <div className="mt-6 text-xs uppercase tracking-[0.18em] text-slate-500">Найдено позиций: {filtered.length}</div>
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-3 text-xs uppercase tracking-[0.18em] text-slate-500">
+        <span>Найдено позиций: {filtered.length}</span>
+        {supplierName ? <span>Поставщик: {supplierName}</span> : null}
+      </div>
 
       {filtered.length > 0 ? (
         <div className="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">

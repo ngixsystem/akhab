@@ -4,16 +4,65 @@ export async function getStoreSettings() {
   return prisma.storeSetting.findUnique({ where: { id: 1 } });
 }
 
-export async function getPublicProducts() {
-  return prisma.product.findMany({
-    where: { isActive: true },
+export async function getPublicSuppliers() {
+  return prisma.supplier.findMany({
+    where: {
+      isActive: true,
+      products: {
+        some: {
+          isActive: true
+        }
+      }
+    },
     include: {
+      _count: {
+        select: {
+          products: {
+            where: { isActive: true }
+          }
+        }
+      }
+    },
+    orderBy: { name: "asc" }
+  });
+}
+
+export async function getSupplierBySlug(slug: string) {
+  return prisma.supplier.findUnique({
+    where: { slug },
+    include: {
+      _count: {
+        select: {
+          products: {
+            where: { isActive: true }
+          }
+        }
+      }
+    }
+  });
+}
+
+export async function getPublicProducts(supplierSlug?: string | null) {
+  return prisma.product.findMany({
+    where: {
+      isActive: true,
+      supplier: supplierSlug
+        ? {
+            slug: supplierSlug,
+            isActive: true
+          }
+        : {
+            isActive: true
+          }
+    },
+    include: {
+      supplier: true,
       inventory: true,
       attributes: {
         orderBy: { sortOrder: "asc" }
       }
     },
-    orderBy: { createdAt: "desc" }
+    orderBy: [{ supplier: { name: "asc" } }, { createdAt: "desc" }]
   });
 }
 
@@ -21,6 +70,7 @@ export async function getProductBySlug(slug: string) {
   return prisma.product.findUnique({
     where: { slug },
     include: {
+      supplier: true,
       inventory: true,
       attributes: {
         orderBy: { sortOrder: "asc" }
@@ -30,8 +80,9 @@ export async function getProductBySlug(slug: string) {
 }
 
 export async function getDashboardData() {
-  const [products, orders, notifications, inventory, latestOrders] = await Promise.all([
+  const [products, suppliers, orders, notifications, inventory, latestOrders] = await Promise.all([
     prisma.product.count(),
+    prisma.supplier.count(),
     prisma.order.count(),
     prisma.notification.count({ where: { isRead: false } }),
     prisma.inventory.aggregate({
@@ -49,6 +100,7 @@ export async function getDashboardData() {
 
   return {
     products,
+    suppliers,
     orders,
     notifications,
     inventory,
@@ -59,6 +111,7 @@ export async function getDashboardData() {
 export async function getAdminProducts() {
   return prisma.product.findMany({
     include: {
+      supplier: true,
       inventory: true,
       attributes: {
         orderBy: { sortOrder: "asc" }
@@ -72,9 +125,36 @@ export async function getProductById(id: string) {
   return prisma.product.findUnique({
     where: { id },
     include: {
+      supplier: true,
       inventory: true,
       attributes: {
         orderBy: { sortOrder: "asc" }
+      }
+    }
+  });
+}
+
+export async function getSuppliers() {
+  return prisma.supplier.findMany({
+    include: {
+      _count: {
+        select: {
+          products: true
+        }
+      }
+    },
+    orderBy: { name: "asc" }
+  });
+}
+
+export async function getSupplierById(id: string) {
+  return prisma.supplier.findUnique({
+    where: { id },
+    include: {
+      _count: {
+        select: {
+          products: true
+        }
       }
     }
   });
@@ -112,6 +192,7 @@ export async function getNotifications() {
 export async function getInventoryRows() {
   return prisma.product.findMany({
     include: {
+      supplier: true,
       inventory: true
     },
     orderBy: { title: "asc" }
@@ -120,6 +201,7 @@ export async function getInventoryRows() {
 
 export function toProductPayload(input: {
   slug: string;
+  supplierId: string;
   companyName: string;
   productType: "REBAR" | "PROFILE";
   title: string;
@@ -140,6 +222,7 @@ export function toProductPayload(input: {
 
   return {
     slug: input.slug,
+    supplierId: input.supplierId,
     companyName: input.companyName,
     productType: type,
     title: input.title,
