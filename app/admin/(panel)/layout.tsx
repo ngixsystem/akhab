@@ -20,7 +20,7 @@ export default async function AdminLayout({ children }: Readonly<{ children: Rea
   const unread = await prisma.notification.count({ where: { isRead: false } });
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="admin-shell min-h-screen bg-slate-950 text-white">
       <div className="mx-auto grid min-h-screen max-w-[1600px] lg:grid-cols-[280px_1fr]">
         <aside className="border-r border-white/10 p-6">
           <Link href={`${BASE_PATH}/admin/dashboard`} className="flex items-center gap-3">

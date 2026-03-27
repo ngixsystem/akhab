@@ -105,3 +105,33 @@ a {
 .steel-outline {
   box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.14);
 }
+
+.admin-shell {
+  color: #f8fafc;
+}
+
+.admin-shell .card {
+  @apply rounded-3xl border border-slate-200 bg-white text-slate-950 shadow-none backdrop-blur-0;
+}
+
+.admin-shell .panel {
+  @apply rounded-3xl border border-slate-200 bg-white text-slate-950;
+}
+
+.admin-shell .input {
+  @apply border-slate-300 bg-white text-slate-950 placeholder:text-slate-400 focus:border-blue-500 focus:ring-blue-500/10;
+}
+
+.admin-shell .label {
+  @apply text-slate-700;
+}
+
+.admin-shell h1,
+.admin-shell h2,
+.admin-shell h3,
+.admin-shell h4,
+.admin-shell h5,
+.admin-shell h6 {
+  font-family: "Inter", sans-serif;
+  letter-spacing: normal;
+}
