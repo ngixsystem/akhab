@@ -17,7 +17,7 @@ export default async function HomePage() {
         <section className="relative min-h-[calc(100vh-64px)] overflow-hidden lg:min-h-[calc(100vh-80px)]">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url('/uploads/demo-rebar.svg')" }}
+            style={{ backgroundImage: "url('/hero-assets/metis-hero.jpg')" }}
           />
           <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,11,18,0.92)_0%,rgba(7,11,18,0.82)_34%,rgba(7,11,18,0.58)_62%,rgba(7,11,18,0.42)_100%)]" />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,11,18,0.35)_0%,rgba(7,11,18,0.68)_100%)]" />
