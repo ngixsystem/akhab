@@ -17,7 +17,7 @@ export default async function CatalogPage() {
         <Badge className="border-blue-500/20 bg-blue-500/10 text-blue-100">Каталог</Badge>
         <h1 className="mt-5 text-6xl leading-none text-white sm:text-7xl">Арматура и профиль</h1>
         <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-400">
-          Подбор по живому каталогу METIS: ищите позиции по названию и параметрам, смотрите наличие и переходите в карточку товара без моков и дублирования данных.
+          Подбор по живому каталогу OOO METIKS: ищите позиции по названию и параметрам, смотрите наличие и переходите в карточку товара без моков и дублирования данных.
         </p>
         <div className="mt-8 grid gap-4 sm:grid-cols-3">
           <div className="rounded-sm border border-border bg-white/5 p-4 text-white">
@@ -30,7 +30,7 @@ export default async function CatalogPage() {
           </div>
           <div className="rounded-sm border border-border bg-white/5 p-4 text-white">
             <div className="text-xs uppercase tracking-[0.18em] text-slate-500">Компания</div>
-            <div className="mt-2 text-lg font-semibold">{settings?.companyName || "METIS"}</div>
+            <div className="mt-2 text-lg font-semibold">{settings?.companyName || "OOO METIKS"}</div>
           </div>
         </div>
         <CatalogClient products={products} />

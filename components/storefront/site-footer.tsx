@@ -20,7 +20,7 @@ export function SiteFooter({
         <div>
           <div className="flex items-center gap-3">
             <div className="h-7 w-0.5 rounded-full bg-gradient-steel" />
-            <span className="text-2xl tracking-[0.16em] text-white">METIS</span>
+            <span className="text-2xl tracking-[0.16em] text-white">OOO METIKS</span>
           </div>
           <p className="mt-4 max-w-xs text-sm leading-6 text-slate-400">
             Индустриальная витрина для арматуры и профильной продукции с актуальными остатками и прямой заявкой в отдел продаж.
@@ -56,15 +56,15 @@ export function SiteFooter({
         </div>
 
         <div>
-          <h4 className="text-sm uppercase tracking-[0.2em] text-white">METIS</h4>
+          <h4 className="text-sm uppercase tracking-[0.2em] text-white">OOO METIKS</h4>
           <p className="mt-4 text-sm leading-6 text-slate-400">
-            {settings?.companyName || "METIS"} помогает быстро подобрать позиции, проверить наличие и передать заказ без лишних согласований.
+            {settings?.companyName || "OOO METIKS"} помогает быстро подобрать позиции, проверить наличие и передать заказ без лишних согласований.
           </p>
         </div>
       </div>
 
       <div className="container-shell flex flex-col gap-3 border-t border-border py-5 text-xs uppercase tracking-[0.18em] text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-        <p>© 2026 METIS</p>
+        <p>© 2026 OOO METIKS</p>
         <p>Industrial storefront / admin preserved</p>
       </div>
     </footer>
