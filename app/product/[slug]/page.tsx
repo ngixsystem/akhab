@@ -21,6 +21,7 @@ export default async function ProductDetailPage({
   const [settings, product] = await Promise.all([getStoreSettings(), getProductBySlug(slug)]);
   if (!product || !product.isActive) notFound();
 
+  const heroPhoto = product.photos.at(-1) || product.photos[0];
   const price =
     product.productType === "REBAR"
       ? Number(product.pricePerPiece ?? product.pricePerTon ?? 0)
@@ -42,7 +43,7 @@ export default async function ProductDetailPage({
         <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
           <div className="space-y-3">
             <div className="card overflow-hidden">
-              <img src={assetPath(product.photos[0])} alt={product.title} className="h-[420px] w-full object-cover" />
+              <img src={assetPath(heroPhoto)} alt={product.title} className="h-[420px] w-full object-cover" />
             </div>
             {product.photos.length > 1 ? (
               <div className="grid grid-cols-4 gap-3">
@@ -117,7 +118,7 @@ export default async function ProductDetailPage({
                     slug: product.slug,
                     quantity: 1,
                     price,
-                    photo: product.photos[0],
+                    photo: heroPhoto,
                     productType: formatProductType(product.productType)
                   }}
                 />

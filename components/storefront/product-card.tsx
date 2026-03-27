@@ -28,6 +28,7 @@ type ProductCardProps = {
 
 export function ProductCard({ product }: ProductCardProps) {
   const { addItem } = useCart();
+  const heroPhoto = product.photos.at(-1) || product.photos[0];
   const price =
     product.productType === "REBAR"
       ? Number(product.pricePerPiece ?? product.pricePerTon ?? 0)
@@ -37,7 +38,7 @@ export function ProductCard({ product }: ProductCardProps) {
     <article className="group card overflow-hidden transition duration-300 hover:-translate-y-1 hover:border-slate-500/30">
       <div className="relative h-64 overflow-hidden border-b border-border bg-slate-950">
         <img
-          src={assetPath(product.photos[0])}
+          src={assetPath(heroPhoto)}
           alt={product.title}
           className="h-full w-full object-cover opacity-80 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
         />
@@ -99,7 +100,7 @@ export function ProductCard({ product }: ProductCardProps) {
                 slug: product.slug,
                 quantity: 1,
                 price,
-                photo: product.photos[0],
+                photo: heroPhoto,
                 productType: formatProductType(product.productType)
               })
             }
