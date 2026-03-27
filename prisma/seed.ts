@@ -10,12 +10,12 @@ async function main() {
     where: { email: process.env.ADMIN_EMAIL || "admin@planner.local" },
     update: {
       passwordHash,
-      name: "Planner Admin"
+      name: "METIS Admin"
     },
     create: {
       email: process.env.ADMIN_EMAIL || "admin@planner.local",
       passwordHash,
-      name: "Planner Admin"
+      name: "METIS Admin"
     }
   });
 
@@ -24,9 +24,9 @@ async function main() {
     update: {},
     create: {
       id: 1,
-      companyName: "Planner Metal Supply",
+      companyName: "METIS Metal Supply",
       phone: "+998 90 000 00 00",
-      telegram: "@planner_metal",
+      telegram: "@metis_metal",
       address: "Ташкент, промышленная зона",
       heroTitle: "Металлопрокат для стройки и производства",
       heroSubtitle: "Арматура и профиль с понятными остатками, актуальными ценами и быстрым подтверждением заказов.",
@@ -39,12 +39,12 @@ async function main() {
     update: {},
     create: {
       slug: "armatura-a500c-12mm",
-      companyName: "Planner Metal Supply",
+      companyName: "METIS Metal Supply",
       productType: "REBAR",
       title: "Арматура A500C 12 мм",
       description: "Надежная арматура для монолитных работ, частного и коммерческого строительства.",
       phone: "+998 90 000 00 00",
-      telegram: "@planner_metal",
+      telegram: "@metis_metal",
       photos: ["/uploads/demo-rebar.svg"],
       isActive: true,
       size: "12 мм",
@@ -72,12 +72,12 @@ async function main() {
     update: {},
     create: {
       slug: "profil-truba-40x20x2",
-      companyName: "Planner Metal Supply",
+      companyName: "METIS Metal Supply",
       productType: "PROFILE",
       title: "Профильная труба 40x20x2",
       description: "Универсальный профиль для каркасных конструкций, навесов и производственных проектов.",
       phone: "+998 90 000 00 00",
-      telegram: "@planner_metal",
+      telegram: "@metis_metal",
       photos: ["/uploads/demo-profile.svg"],
       isActive: true
     }

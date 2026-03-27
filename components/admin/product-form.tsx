@@ -31,12 +31,12 @@ type ProductFormValue = {
 
 const emptyForm: ProductFormValue = {
   slug: "",
-  companyName: "Planner Metal Supply",
+  companyName: "METIS Metal Supply",
   productType: "REBAR",
   title: "",
   description: "",
   phone: "+998 90 000 00 00",
-  telegram: "@planner_metal",
+  telegram: "@metis_metal",
   photos: [],
   isActive: true,
   size: "",

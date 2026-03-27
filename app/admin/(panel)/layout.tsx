@@ -28,7 +28,7 @@ export default async function AdminLayout({ children }: Readonly<{ children: Rea
               PLNR
             </div>
             <div>
-              <div className="font-semibold">Planner Admin</div>
+              <div className="font-semibold">METIS Admin</div>
               <div className="text-xs text-slate-400">metal operations panel</div>
             </div>
           </Link>
