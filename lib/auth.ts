@@ -66,7 +66,7 @@ export async function setAuthCookie(token: string) {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
-    path: BASE_PATH,
+    path: BASE_PATH || "/",
     maxAge: 60 * 60 * 24 * 7
   });
 }
@@ -77,7 +77,7 @@ export async function clearAuthCookie() {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
-    path: BASE_PATH,
+    path: BASE_PATH || "/",
     maxAge: 0
   });
 }
