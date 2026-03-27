@@ -21,7 +21,7 @@ export default async function ProductDetailPage({
   const [settings, product] = await Promise.all([getStoreSettings(), getProductBySlug(slug)]);
   if (!product || !product.isActive) notFound();
 
-  const heroPhoto = product.photos.at(-1) || product.photos[0];
+  const heroPhoto = product.photos[0] || product.photos.at(-1);
   const price =
     product.productType === "REBAR"
       ? Number(product.pricePerPiece ?? product.pricePerTon ?? 0)

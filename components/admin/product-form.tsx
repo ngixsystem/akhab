@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { GripVertical, Star, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
@@ -77,6 +78,32 @@ export function ProductForm({ initialData }: Readonly<{ initialData?: ProductFor
     } finally {
       setUploading(false);
     }
+  }
+
+  function removePhoto(photo: string) {
+    setForm((current) => ({
+      ...current,
+      photos: current.photos.filter((item) => item !== photo)
+    }));
+  }
+
+  function makePrimaryPhoto(photo: string) {
+    setForm((current) => ({
+      ...current,
+      photos: [photo, ...current.photos.filter((item) => item !== photo)]
+    }));
+  }
+
+  function movePhoto(photo: string, direction: "left" | "right") {
+    setForm((current) => {
+      const index = current.photos.indexOf(photo);
+      if (index === -1) return current;
+      const targetIndex = direction === "left" ? index - 1 : index + 1;
+      if (targetIndex < 0 || targetIndex >= current.photos.length) return current;
+      const next = [...current.photos];
+      [next[index], next[targetIndex]] = [next[targetIndex], next[index]];
+      return { ...current, photos: next };
+    });
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -172,14 +199,54 @@ export function ProductForm({ initialData }: Readonly<{ initialData?: ProductFor
       </div>
 
       <div className="card p-6">
-        <h2 className="text-xl font-semibold text-slate-950">Фотографии</h2>
+        <div className="flex items-center justify-between gap-4">
+          <h2 className="text-xl font-semibold text-slate-950">Фотографии</h2>
+          <div className="text-sm text-slate-500">Первая фотография используется как главная на витрине</div>
+        </div>
+
         <div className="mt-4 flex flex-wrap items-center gap-3">
           <Input type="file" accept="image/*" multiple onChange={(e) => uploadFiles(e.target.files)} />
           {uploading ? <span className="text-sm text-slate-500">Загрузка...</span> : null}
         </div>
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
-          {form.photos.map((photo) => (
-            <img key={photo} src={`${BASE_PATH}${photo}`} alt={photo} className="h-40 w-full rounded-3xl object-cover" />
+
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {form.photos.map((photo, index) => (
+            <div key={photo} className="overflow-hidden rounded-3xl border border-slate-200 bg-white">
+              <img src={`${BASE_PATH}${photo}`} alt={photo} className="h-44 w-full object-cover" />
+              <div className="space-y-3 p-4">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
+                    {index === 0 ? "Главная" : `Фото ${index + 1}`}
+                  </div>
+                  {index === 0 ? (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-1 text-xs font-semibold text-amber-700">
+                      <Star className="h-3.5 w-3.5" /> Основная
+                    </span>
+                  ) : null}
+                </div>
+
+                <div className="grid grid-cols-3 gap-2">
+                  <Button type="button" variant="secondary" onClick={() => movePhoto(photo, "left")} disabled={index === 0}>
+                    ←
+                  </Button>
+                  <Button type="button" variant="secondary" onClick={() => movePhoto(photo, "right")} disabled={index === form.photos.length - 1}>
+                    →
+                  </Button>
+                  <Button type="button" variant="secondary" onClick={() => makePrimaryPhoto(photo)} disabled={index === 0}>
+                    <Star className="h-4 w-4" />
+                  </Button>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <Button type="button" variant="secondary" className="gap-2" onClick={() => makePrimaryPhoto(photo)} disabled={index === 0}>
+                    <GripVertical className="h-4 w-4" /> Главная
+                  </Button>
+                  <Button type="button" variant="secondary" className="gap-2 text-rose-600 hover:text-rose-700" onClick={() => removePhoto(photo)}>
+                    <Trash2 className="h-4 w-4" /> Удалить
+                  </Button>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </div>

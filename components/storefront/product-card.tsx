@@ -28,7 +28,7 @@ type ProductCardProps = {
 
 export function ProductCard({ product }: ProductCardProps) {
   const { addItem } = useCart();
-  const heroPhoto = product.photos.at(-1) || product.photos[0];
+  const heroPhoto = product.photos[0] || product.photos.at(-1);
   const price =
     product.productType === "REBAR"
       ? Number(product.pricePerPiece ?? product.pricePerTon ?? 0)
