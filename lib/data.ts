@@ -1,0 +1,158 @@
+import { prisma } from "./prisma";
+
+export async function getStoreSettings() {
+  return prisma.storeSetting.findUnique({ where: { id: 1 } });
+}
+
+export async function getPublicProducts() {
+  return prisma.product.findMany({
+    where: { isActive: true },
+    include: {
+      inventory: true,
+      attributes: {
+        orderBy: { sortOrder: "asc" }
+      }
+    },
+    orderBy: { createdAt: "desc" }
+  });
+}
+
+export async function getProductBySlug(slug: string) {
+  return prisma.product.findUnique({
+    where: { slug },
+    include: {
+      inventory: true,
+      attributes: {
+        orderBy: { sortOrder: "asc" }
+      }
+    }
+  });
+}
+
+export async function getDashboardData() {
+  const [products, orders, notifications, inventory, latestOrders] = await Promise.all([
+    prisma.product.count(),
+    prisma.order.count(),
+    prisma.notification.count({ where: { isRead: false } }),
+    prisma.inventory.aggregate({
+      _sum: {
+        available: true,
+        reserved: true
+      }
+    }),
+    prisma.order.findMany({
+      take: 5,
+      orderBy: { createdAt: "desc" },
+      include: { items: true }
+    })
+  ]);
+
+  return {
+    products,
+    orders,
+    notifications,
+    inventory,
+    latestOrders
+  };
+}
+
+export async function getAdminProducts() {
+  return prisma.product.findMany({
+    include: {
+      inventory: true,
+      attributes: {
+        orderBy: { sortOrder: "asc" }
+      }
+    },
+    orderBy: { updatedAt: "desc" }
+  });
+}
+
+export async function getProductById(id: string) {
+  return prisma.product.findUnique({
+    where: { id },
+    include: {
+      inventory: true,
+      attributes: {
+        orderBy: { sortOrder: "asc" }
+      }
+    }
+  });
+}
+
+export async function getOrders() {
+  return prisma.order.findMany({
+    include: {
+      items: true
+    },
+    orderBy: { createdAt: "desc" }
+  });
+}
+
+export async function getOrderById(id: string) {
+  return prisma.order.findUnique({
+    where: { id },
+    include: {
+      items: {
+        include: {
+          product: true
+        }
+      }
+    }
+  });
+}
+
+export async function getNotifications() {
+  return prisma.notification.findMany({
+    orderBy: { createdAt: "desc" },
+    take: 50
+  });
+}
+
+export async function getInventoryRows() {
+  return prisma.product.findMany({
+    include: {
+      inventory: true
+    },
+    orderBy: { title: "asc" }
+  });
+}
+
+export function toProductPayload(input: {
+  slug: string;
+  companyName: string;
+  productType: "REBAR" | "PROFILE";
+  title: string;
+  description: string;
+  phone: string;
+  telegram?: string | null;
+  photos: string[];
+  isActive: boolean;
+  size?: string | null;
+  length?: string | null;
+  meterPerTon?: number | null;
+  piecesPerTon?: number | null;
+  pricePerTon?: number | null;
+  pricePerPiece?: number | null;
+  attributes: { key: string; value: string; sortOrder: number }[];
+}) {
+  const type = input.productType;
+
+  return {
+    slug: input.slug,
+    companyName: input.companyName,
+    productType: type,
+    title: input.title,
+    description: input.description,
+    phone: input.phone,
+    telegram: input.telegram || null,
+    photos: input.photos,
+    isActive: input.isActive,
+    size: type === "REBAR" ? input.size || null : null,
+    length: type === "REBAR" ? input.length || null : null,
+    meterPerTon: type === "REBAR" && input.meterPerTon !== null && input.meterPerTon !== undefined ? input.meterPerTon : null,
+    piecesPerTon: type === "REBAR" && input.piecesPerTon !== null && input.piecesPerTon !== undefined ? input.piecesPerTon : null,
+    pricePerTon: type === "REBAR" && input.pricePerTon !== null && input.pricePerTon !== undefined ? input.pricePerTon : null,
+    pricePerPiece: type === "REBAR" && input.pricePerPiece !== null && input.pricePerPiece !== undefined ? input.pricePerPiece : null
+  };
+}

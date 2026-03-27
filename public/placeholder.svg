@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" fill="none">
+  <rect width="1200" height="900" fill="#111827"/>
+  <rect x="80" y="80" width="1040" height="740" rx="48" fill="#1F2937" stroke="#374151" stroke-width="2"/>
+  <path d="M190 620L420 320H600L370 620H190Z" fill="#F59E0B"/>
+  <path d="M500 620L730 320H910L680 620H500Z" fill="#D97706"/>
+  <path d="M220 270H980" stroke="#4B5563" stroke-width="18" stroke-linecap="round"/>
+  <text x="220" y="710" fill="#E5E7EB" font-family="Arial, sans-serif" font-size="54" font-weight="700">Planner Metal Supply</text>
+</svg>

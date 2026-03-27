@@ -1,0 +1,36 @@
+import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
+import { BASE_PATH } from "@/lib/constants";
+import { getOrders } from "@/lib/data";
+
+export const dynamic = "force-dynamic";
+
+export default async function AdminOrdersPage() {
+  const orders = await getOrders();
+
+  return (
+    <div className="space-y-6">
+      <div>
+        <Badge>Orders</Badge>
+        <h1 className="mt-4 text-4xl font-semibold text-slate-950">Заказы клиентов</h1>
+      </div>
+      <div className="grid gap-4">
+        {orders.map((order) => (
+          <Link key={order.id} href={`${BASE_PATH}/admin/orders/${order.id}`} className="card p-6 transition hover:-translate-y-0.5">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <div className="text-lg font-semibold text-slate-950">{order.customerName}</div>
+                <div className="mt-1 text-sm text-slate-500">
+                  {order.phone} · {order.items.length} позиций
+                </div>
+              </div>
+              <div className="rounded-full bg-slate-950 px-4 py-2 text-sm font-medium uppercase tracking-[0.2em] text-white">
+                {order.status.toLowerCase()}
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
