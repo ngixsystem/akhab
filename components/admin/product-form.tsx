@@ -55,7 +55,7 @@ const emptyForm: ProductFormValue = {
   piecesPerTon: undefined,
   pricePerTon: undefined,
   pricePerPiece: undefined,
-  attributes: [{ key: "", value: "", sortOrder: 0 }]
+  attributes: []
 };
 
 export function ProductForm({
@@ -143,7 +143,10 @@ export function ProductForm({
         body: JSON.stringify(payload)
       });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Не удалось сохранить товар.");
+      if (!response.ok) {
+        const details = data.details ? ` (${data.details})` : "";
+        throw new Error((data.error || "Не удалось сохранить товар.") + details);
+      }
 
       setSuccess("Товар сохранен.");
       router.push(`${BASE_PATH}/admin/products`);

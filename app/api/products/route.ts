@@ -34,7 +34,13 @@ export async function POST(request: Request) {
     await requireAdmin();
     const body = await request.json();
     const parsed = productSchema.safeParse(body);
-    if (!parsed.success) return apiError(parsed.error.issues[0]?.message || "Invalid payload.");
+    if (!parsed.success) {
+      const issue = parsed.error.issues[0];
+      return Response.json(
+        { error: issue?.message || "Invalid payload.", details: issue?.path?.join(".") || null },
+        { status: 400 }
+      );
+    }
 
     const supplier = await prisma.supplier.findUnique({ where: { id: parsed.data.supplierId } });
     if (!supplier) return apiError("Supplier not found.", 404);
