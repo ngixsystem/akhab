@@ -44,7 +44,7 @@ export default async function SupplierCatalogPage({
           </Link>
         </div>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-3">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
           <div className="rounded-sm border border-border bg-white/5 p-4 text-white">
             <div className="text-xs uppercase tracking-[0.18em] text-slate-500">Товаров</div>
             <div className="mt-2 text-3xl font-semibold">{products.length}</div>
@@ -52,10 +52,6 @@ export default async function SupplierCatalogPage({
           <div className="rounded-sm border border-border bg-white/5 p-4 text-white">
             <div className="text-xs uppercase tracking-[0.18em] text-slate-500">В наличии</div>
             <div className="mt-2 text-3xl font-semibold">{availableCount}</div>
-          </div>
-          <div className="rounded-sm border border-border bg-white/5 p-4 text-white">
-            <div className="text-xs uppercase tracking-[0.18em] text-slate-500">Фильтр по query</div>
-            <div className="mt-2 text-lg font-semibold">?supplier={supplier.slug}</div>
           </div>
         </div>
 
