@@ -41,7 +41,7 @@ export function OrderStatusForm({
 
   return (
     <form onSubmit={handleSubmit} className="card p-6">
-      <h2 className="text-xl font-semibold text-slate-950">Управление заказом</h2>
+      <h2 className="text-xl font-semibold admin-heading">Управление заказом</h2>
       <div className="mt-5 space-y-5">
         <div>
           <label className="label">Статус</label>
@@ -58,7 +58,7 @@ export function OrderStatusForm({
           <Textarea value={internalNotes} onChange={(e) => setInternalNotes(e.target.value)} />
         </div>
       </div>
-      {message ? <p className="mt-4 text-sm text-slate-600">{message}</p> : null}
+      {message ? <p className="mt-4 text-sm admin-muted">{message}</p> : null}
       <Button type="submit" variant="accent" className="mt-5 w-full" disabled={loading}>
         {loading ? "Обновление..." : "Обновить"}
       </Button>

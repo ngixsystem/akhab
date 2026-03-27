@@ -18,7 +18,7 @@ export default async function EditSupplierPage({
     <div className="space-y-6">
       <div>
         <Badge>Edit Supplier</Badge>
-        <h1 className="mt-4 text-4xl font-semibold text-slate-950">{supplier.name}</h1>
+        <h1 className="mt-4 text-4xl font-semibold admin-heading">{supplier.name}</h1>
       </div>
       <SupplierForm
         initialData={{

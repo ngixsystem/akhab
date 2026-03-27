@@ -29,15 +29,15 @@ export function NotificationList({ notifications }: Readonly<{ notifications: No
         <div key={notification.id} className="card p-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
-              <div className="text-lg font-semibold text-slate-950">{notification.title}</div>
-              <p className="mt-2 text-sm leading-7 text-slate-600">{notification.message}</p>
+              <div className="text-lg font-semibold admin-heading">{notification.title}</div>
+              <p className="mt-2 text-sm leading-7 admin-muted">{notification.message}</p>
             </div>
             {!notification.isRead ? (
               <Button type="button" variant="secondary" onClick={() => markRead(notification.id)}>
                 Mark read
               </Button>
             ) : (
-              <span className="rounded-full bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700">
+              <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-2 text-sm font-medium text-emerald-300">
                 read
               </span>
             )}

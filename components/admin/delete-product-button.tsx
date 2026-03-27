@@ -41,7 +41,7 @@ export function DeleteProductButton({ productId, productTitle, compact = false }
     <Button
       type="button"
       variant="secondary"
-      className={compact ? "gap-2 text-rose-600 hover:text-rose-700" : "gap-2 border-rose-200 text-rose-600 hover:text-rose-700"}
+      className={compact ? "gap-2 text-rose-300 hover:text-rose-200" : "gap-2 border-rose-200 text-rose-300 hover:text-rose-200"}
       onClick={handleDelete}
       disabled={loading}
     >

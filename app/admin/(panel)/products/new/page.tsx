@@ -12,7 +12,7 @@ export default async function CreateProductPage() {
       <div className="flex items-center justify-between gap-4">
         <div>
           <Badge>New Product</Badge>
-          <h1 className="mt-4 text-4xl font-semibold text-slate-950">Создать товар</h1>
+          <h1 className="mt-4 text-4xl font-semibold admin-heading">Создать товар</h1>
         </div>
         {suppliers.length === 0 ? (
           <Link href={`${BASE_PATH}/admin/suppliers/new`} className="btn-secondary">

@@ -92,23 +92,118 @@ a {
 }
 
 .admin-shell {
-  color: #f8fafc;
+  --admin-bg: #020617;
+  --admin-panel: rgba(15, 23, 42, 0.9);
+  --admin-panel-alt: rgba(15, 23, 42, 0.72);
+  --admin-panel-soft: rgba(30, 41, 59, 0.7);
+  --admin-border: rgba(148, 163, 184, 0.18);
+  --admin-border-strong: rgba(148, 163, 184, 0.28);
+  --admin-text: #e2e8f0;
+  --admin-muted: #94a3b8;
+  --admin-heading: #f8fafc;
+  --admin-accent: #fbbf24;
+  color: var(--admin-text);
+  background:
+    radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 30%),
+    radial-gradient(circle at top right, rgba(251, 191, 36, 0.14), transparent 28%),
+    linear-gradient(180deg, #020617 0%, #0f172a 100%);
 }
 
-.admin-shell .card {
-  @apply rounded-3xl border border-slate-200 bg-white text-slate-950 shadow-none backdrop-blur-0;
-}
-
+.admin-shell .card,
 .admin-shell .panel {
-  @apply rounded-3xl border border-slate-200 bg-white text-slate-950;
+  @apply rounded-[28px] border shadow-none backdrop-blur-xl;
+  border-color: var(--admin-border);
+  background: var(--admin-panel);
+  color: var(--admin-text);
+  box-shadow: 0 24px 60px rgba(2, 6, 23, 0.32);
 }
 
 .admin-shell .input {
-  @apply border-slate-300 bg-white text-slate-950 placeholder:text-slate-400 focus:border-blue-500 focus:ring-blue-500/10;
+  @apply border px-4 py-3 text-sm outline-none transition;
+  border-color: var(--admin-border);
+  background: rgba(15, 23, 42, 0.82);
+  color: var(--admin-heading);
+}
+
+.admin-shell .input::placeholder {
+  color: #64748b;
+}
+
+.admin-shell .input:focus {
+  border-color: rgba(96, 165, 250, 0.8);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.14);
 }
 
 .admin-shell .label {
-  @apply text-slate-700;
+  color: #cbd5e1;
+}
+
+.admin-shell .admin-badge {
+  border-color: var(--admin-border);
+  background: rgba(15, 23, 42, 0.84);
+  color: #cbd5e1;
+}
+
+.admin-shell .btn-primary {
+  @apply text-slate-950;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+}
+
+.admin-shell .btn-primary:hover {
+  background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 100%);
+}
+
+.admin-shell .btn-secondary {
+  border-color: var(--admin-border);
+  background: rgba(15, 23, 42, 0.7);
+  color: var(--admin-text);
+}
+
+.admin-shell .btn-secondary:hover {
+  background: rgba(30, 41, 59, 0.9);
+}
+
+.admin-shell .btn-accent {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.admin-shell .btn-accent:hover {
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+}
+
+.admin-shell .btn:disabled,
+.admin-shell .input:disabled {
+  @apply cursor-not-allowed opacity-60;
+}
+
+.admin-shell .admin-muted {
+  color: var(--admin-muted);
+}
+
+.admin-shell .admin-heading {
+  color: var(--admin-heading);
+}
+
+.admin-shell .admin-subtle {
+  border-color: var(--admin-border);
+  background: var(--admin-panel-soft);
+}
+
+.admin-shell .admin-table thead {
+  background: rgba(15, 23, 42, 0.76);
+  color: #94a3b8;
+}
+
+.admin-shell .admin-table tbody tr {
+  border-top: 1px solid var(--admin-border);
+}
+
+.admin-shell .admin-table tbody tr:hover {
+  background: rgba(15, 23, 42, 0.42);
+}
+
+.admin-shell .admin-checkbox {
+  accent-color: #fbbf24;
 }
 
 .admin-shell h1,
@@ -119,4 +214,15 @@ a {
 .admin-shell h6 {
   font-family: "Inter", sans-serif;
   letter-spacing: normal;
+  color: var(--admin-heading);
+}
+
+.admin-auth .input {
+  border-color: rgba(148, 163, 184, 0.22);
+  background: rgba(15, 23, 42, 0.66);
+  color: #f8fafc;
+}
+
+.admin-auth .input::placeholder {
+  color: #94a3b8;
 }

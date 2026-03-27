@@ -45,7 +45,7 @@ export default async function EditProductPage({
       <div className="flex items-start justify-between gap-4">
         <div>
           <Badge>Edit Product</Badge>
-          <h1 className="mt-4 text-4xl font-semibold text-slate-950">{product.title}</h1>
+          <h1 className="mt-4 text-4xl font-semibold admin-heading">{product.title}</h1>
         </div>
         <DeleteProductButton productId={product.id} productTitle={product.title} />
       </div>

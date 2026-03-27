@@ -91,15 +91,16 @@ export function SupplierForm({ initialData }: Readonly<{ initialData?: SupplierF
       </div>
 
       <div className="card p-6">
-        <label className="flex items-center gap-3 text-sm font-medium text-slate-700">
+        <label className="flex items-center gap-3 text-sm font-medium text-slate-300">
           <input
+            className="admin-checkbox"
             type="checkbox"
             checked={form.isActive}
             onChange={(e) => setForm((current) => ({ ...current, isActive: e.target.checked }))}
           />
           Показывать поставщика на витрине
         </label>
-        {error ? <p className="mt-4 text-sm text-rose-600">{error}</p> : null}
+        {error ? <p className="mt-4 text-sm text-rose-300">{error}</p> : null}
         <div className="mt-6 flex gap-3">
           <Button type="submit" variant="accent" disabled={loading}>
             {loading ? "Сохранение..." : "Сохранить"}

@@ -14,7 +14,7 @@ export default async function AdminSuppliersPage() {
       <div className="flex items-center justify-between gap-4">
         <div>
           <Badge>Suppliers</Badge>
-          <h1 className="mt-4 text-4xl font-semibold text-slate-950">Поставщики</h1>
+          <h1 className="mt-4 text-4xl font-semibold admin-heading">Поставщики</h1>
         </div>
         <Link href={`${BASE_PATH}/admin/suppliers/new`} className="btn-primary">
           Добавить поставщика
@@ -23,8 +23,8 @@ export default async function AdminSuppliersPage() {
 
       <div className="card overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="min-w-full text-sm">
-            <thead className="bg-slate-50 text-left text-slate-500">
+          <table className="admin-table min-w-full text-sm">
+            <thead className="text-left">
               <tr>
                 <th className="px-6 py-4">Название</th>
                 <th className="px-6 py-4">Slug</th>
@@ -36,15 +36,15 @@ export default async function AdminSuppliersPage() {
             </thead>
             <tbody>
               {suppliers.map((supplier) => (
-                <tr key={supplier.id} className="border-t border-slate-100 align-top">
-                  <td className="px-6 py-4 font-medium text-slate-950">{supplier.name}</td>
-                  <td className="px-6 py-4 text-slate-600">{supplier.slug}</td>
+                <tr key={supplier.id} className="align-top">
+                  <td className="px-6 py-4 font-medium admin-heading">{supplier.name}</td>
+                  <td className="px-6 py-4 admin-muted">{supplier.slug}</td>
                   <td className="px-6 py-4">{supplier._count.products}</td>
                   <td className="px-6 py-4">{supplier.isActive ? "active" : "hidden"}</td>
-                  <td className="px-6 py-4 text-slate-600">{supplier.description || "—"}</td>
+                  <td className="px-6 py-4 admin-muted">{supplier.description || "—"}</td>
                   <td className="px-6 py-4">
                     <div className="flex justify-end gap-3">
-                      <Link href={`${BASE_PATH}/admin/suppliers/${supplier.id}`} className="font-semibold text-slate-950">
+                      <Link href={`${BASE_PATH}/admin/suppliers/${supplier.id}`} className="font-semibold admin-heading">
                         Редактировать
                       </Link>
                       <DeleteSupplierButton supplierId={supplier.id} disabled={supplier._count.products > 0} />

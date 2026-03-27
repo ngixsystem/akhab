@@ -11,7 +11,7 @@ export default async function InventoryPage() {
     <div className="space-y-6">
       <div>
         <Badge>Inventory</Badge>
-        <h1 className="mt-4 text-4xl font-semibold text-slate-950">Контроль остатков</h1>
+        <h1 className="mt-4 text-4xl font-semibold admin-heading">Контроль остатков</h1>
       </div>
       <InventoryTable rows={rows} />
     </div>

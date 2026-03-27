@@ -32,10 +32,10 @@ export function DeleteSupplierButton({ supplierId, disabled }: Readonly<{ suppli
 
   return (
     <div className="flex flex-col items-end gap-2">
-      <Button type="button" variant="secondary" className="text-rose-600 hover:text-rose-700" onClick={handleDelete} disabled={disabled || loading}>
+      <Button type="button" variant="secondary" className="border-rose-500/30 text-rose-300 hover:text-rose-200" onClick={handleDelete} disabled={disabled || loading}>
         {loading ? "Удаление..." : "Удалить"}
       </Button>
-      {error ? <p className="max-w-56 text-right text-xs text-rose-600">{error}</p> : null}
+      {error ? <p className="max-w-56 text-right text-xs text-rose-300">{error}</p> : null}
     </div>
   );
 }

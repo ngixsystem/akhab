@@ -66,7 +66,7 @@ export function SettingsForm({ initialData }: Readonly<{ initialData: SettingsVa
           <Textarea value={form.aboutText} onChange={(e) => setForm((current) => ({ ...current, aboutText: e.target.value }))} />
         </div>
       </div>
-      {message ? <p className="mt-4 text-sm text-slate-600">{message}</p> : null}
+      {message ? <p className="mt-4 text-sm admin-muted">{message}</p> : null}
       <Button type="submit" variant="accent" className="mt-6" disabled={loading}>
         {loading ? "Сохранение..." : "Сохранить"}
       </Button>

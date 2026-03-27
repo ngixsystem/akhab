@@ -46,8 +46,8 @@ export function InventoryTable({ rows }: Readonly<{ rows: Row[] }>) {
   return (
     <div className="card overflow-hidden">
       <div className="overflow-x-auto">
-        <table className="min-w-full text-sm">
-          <thead className="bg-slate-50 text-left text-slate-500">
+        <table className="admin-table min-w-full text-sm">
+          <thead className="text-left">
             <tr>
               <th className="px-6 py-4">Товар</th>
               <th className="px-6 py-4">Тип</th>
@@ -59,8 +59,8 @@ export function InventoryTable({ rows }: Readonly<{ rows: Row[] }>) {
           </thead>
           <tbody>
             {rows.map((row) => (
-              <tr key={row.id} className="border-t border-slate-100">
-                <td className="px-6 py-4 font-medium text-slate-950">{row.title}</td>
+              <tr key={row.id}>
+                <td className="px-6 py-4 font-medium admin-heading">{row.title}</td>
                 <td className="px-6 py-4">
                   {PRODUCT_TYPE_OPTIONS.find((item) => item.value === row.productType)?.label}
                 </td>

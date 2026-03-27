@@ -11,7 +11,7 @@ export default async function SettingsPage() {
     <div className="space-y-6">
       <div>
         <Badge>Settings</Badge>
-        <h1 className="mt-4 text-4xl font-semibold text-slate-950">Настройки компании</h1>
+        <h1 className="mt-4 text-4xl font-semibold admin-heading">Настройки компании</h1>
       </div>
       <SettingsForm
         initialData={{

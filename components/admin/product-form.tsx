@@ -225,26 +225,26 @@ export function ProductForm({
 
       <div className="card p-6">
         <div className="flex items-center justify-between gap-4">
-          <h2 className="text-xl font-semibold text-slate-950">Фотографии</h2>
-          <div className="text-sm text-slate-500">Первая фотография используется как главная на витрине</div>
+          <h2 className="text-xl font-semibold admin-heading">Фотографии</h2>
+          <div className="text-sm admin-muted">Первая фотография используется как главная на витрине</div>
         </div>
 
         <div className="mt-4 flex flex-wrap items-center gap-3">
           <Input type="file" accept="image/*" multiple onChange={(e) => uploadFiles(e.target.files)} />
-          {uploading ? <span className="text-sm text-slate-500">Загрузка...</span> : null}
+          {uploading ? <span className="text-sm admin-muted">Загрузка...</span> : null}
         </div>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {form.photos.map((photo, index) => (
-            <div key={photo} className="overflow-hidden rounded-3xl border border-slate-200 bg-white">
+            <div key={photo} className="overflow-hidden rounded-3xl border border-slate-700 bg-slate-950/70">
               <img src={`${BASE_PATH}${photo}`} alt={photo} className="h-44 w-full object-cover" />
               <div className="space-y-3 p-4">
                 <div className="flex items-center justify-between gap-3">
-                  <div className="text-xs font-medium uppercase tracking-[0.18em] text-slate-500">
+                  <div className="text-xs font-medium uppercase tracking-[0.18em] admin-muted">
                     {index === 0 ? "Главная" : `Фото ${index + 1}`}
                   </div>
                   {index === 0 ? (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-1 text-xs font-semibold text-amber-700">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-amber-400/15 px-2 py-1 text-xs font-semibold text-amber-300">
                       <Star className="h-3.5 w-3.5" /> Основная
                     </span>
                   ) : null}
@@ -266,7 +266,7 @@ export function ProductForm({
                   <Button type="button" variant="secondary" className="gap-2" onClick={() => makePrimaryPhoto(photo)} disabled={index === 0}>
                     <GripVertical className="h-4 w-4" /> Главная
                   </Button>
-                  <Button type="button" variant="secondary" className="gap-2 text-rose-600 hover:text-rose-700" onClick={() => removePhoto(photo)}>
+                  <Button type="button" variant="secondary" className="gap-2 text-rose-300 hover:text-rose-200" onClick={() => removePhoto(photo)}>
                     <Trash2 className="h-4 w-4" /> Удалить
                   </Button>
                 </div>
@@ -278,7 +278,7 @@ export function ProductForm({
 
       {form.productType === "REBAR" ? (
         <div className="card p-6">
-          <h2 className="text-xl font-semibold text-slate-950">Характеристики арматуры</h2>
+          <h2 className="text-xl font-semibold admin-heading">Характеристики арматуры</h2>
           <div className="mt-5 grid gap-5 md:grid-cols-2">
             <Field label="Размер">
               <Select value={form.size || ""} onChange={(e) => setForm((current) => ({ ...current, size: e.target.value }))}>
@@ -308,7 +308,7 @@ export function ProductForm({
       ) : (
         <div className="card p-6">
           <div className="flex items-center justify-between gap-4">
-            <h2 className="text-xl font-semibold text-slate-950">Атрибуты профиля</h2>
+            <h2 className="text-xl font-semibold admin-heading">Атрибуты профиля</h2>
             <Button
               type="button"
               variant="secondary"
@@ -368,16 +368,17 @@ export function ProductForm({
       )}
 
       <div className="card p-6">
-        <label className="flex items-center gap-3 text-sm font-medium text-slate-700">
+        <label className="flex items-center gap-3 text-sm font-medium text-slate-300">
           <input
+            className="admin-checkbox"
             type="checkbox"
             checked={form.isActive}
             onChange={(e) => setForm((current) => ({ ...current, isActive: e.target.checked }))}
           />
           Товар активен на витрине
         </label>
-        {error ? <p className="mt-4 text-sm text-rose-600">{error}</p> : null}
-        {success ? <p className="mt-4 text-sm text-emerald-600">{success}</p> : null}
+        {error ? <p className="mt-4 text-sm text-rose-300">{error}</p> : null}
+        {success ? <p className="mt-4 text-sm text-emerald-300">{success}</p> : null}
         <div className="mt-6 flex gap-3">
           <Button type="submit" variant="accent" disabled={loading || suppliers.length === 0}>
             {loading ? "Сохранение..." : "Сохранить"}
@@ -386,7 +387,7 @@ export function ProductForm({
             Отмена
           </Button>
         </div>
-        {suppliers.length === 0 ? <p className="mt-4 text-sm text-amber-600">Сначала создайте хотя бы одного поставщика.</p> : null}
+        {suppliers.length === 0 ? <p className="mt-4 text-sm text-amber-300">Сначала создайте хотя бы одного поставщика.</p> : null}
       </div>
     </form>
   );

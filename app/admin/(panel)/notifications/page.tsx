@@ -11,7 +11,7 @@ export default async function NotificationsPage() {
     <div className="space-y-6">
       <div>
         <Badge>Notifications</Badge>
-        <h1 className="mt-4 text-4xl font-semibold text-slate-950">Панель уведомлений</h1>
+        <h1 className="mt-4 text-4xl font-semibold admin-heading">Панель уведомлений</h1>
       </div>
       <NotificationList notifications={notifications} />
     </div>
