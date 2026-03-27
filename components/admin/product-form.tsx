@@ -281,7 +281,12 @@ export function ProductForm({
           <h2 className="text-xl font-semibold text-slate-950">Характеристики арматуры</h2>
           <div className="mt-5 grid gap-5 md:grid-cols-2">
             <Field label="Размер">
-              <Input value={form.size || ""} onChange={(e) => setForm((current) => ({ ...current, size: e.target.value }))} />
+              <Select value={form.size || ""} onChange={(e) => setForm((current) => ({ ...current, size: e.target.value }))}>
+                <option value="">Выберите размер</option>
+                {["10", "12", "14", "16", "20", "22"].map((s) => (
+                  <option key={s} value={`${s} мм`}>{s} мм</option>
+                ))}
+              </Select>
             </Field>
             <Field label="Длина">
               <Input value={form.length || ""} onChange={(e) => setForm((current) => ({ ...current, length: e.target.value }))} />
