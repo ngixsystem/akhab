@@ -12,13 +12,13 @@ export default async function CheckoutPage() {
   return (
     <div>
       <SiteHeader />
-      <main className="container-shell py-14">
-        <Badge>Checkout</Badge>
-        <h1 className="mt-5 text-4xl font-semibold text-slate-950">Оформление заказа</h1>
-        <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
-          После отправки заказ появится в административной панели в статусе <strong>new</strong>.
+      <main className="container-shell py-10 sm:py-14">
+        <Badge className="border-blue-500/20 bg-blue-500/10 text-blue-100">Checkout</Badge>
+        <h1 className="mt-5 max-w-3xl text-5xl leading-none text-white sm:text-6xl">Оформление заявки</h1>
+        <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
+          После отправки заявка появится в административной панели со статусом <strong>new</strong>. Менеджер увидит её сразу.
         </p>
-        <div className="mt-10">
+        <div className="mt-8 sm:mt-10">
           <CheckoutForm />
         </div>
       </main>
