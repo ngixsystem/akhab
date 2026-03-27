@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { DeleteProductButton } from "@/components/admin/delete-product-button";
 import { BASE_PATH } from "@/lib/constants";
 import { getAdminProducts } from "@/lib/data";
 import { formatCurrency, formatProductType } from "@/lib/utils";
@@ -46,9 +47,12 @@ export default async function AdminProductsPage() {
                   </td>
                   <td className="px-6 py-4">{product.isActive ? "active" : "hidden"}</td>
                   <td className="px-6 py-4">
-                    <Link href={`${BASE_PATH}/admin/products/${product.id}`} className="font-semibold text-slate-950">
-                      Редактировать
-                    </Link>
+                    <div className="flex items-center gap-3">
+                      <Link href={`${BASE_PATH}/admin/products/${product.id}`} className="font-semibold text-slate-950">
+                        Редактировать
+                      </Link>
+                      <DeleteProductButton compact productId={product.id} productTitle={product.title} />
+                    </div>
                   </td>
                 </tr>
               ))}

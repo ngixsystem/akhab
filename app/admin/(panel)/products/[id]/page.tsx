@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { ProductForm } from "@/components/admin/product-form";
+import { DeleteProductButton } from "@/components/admin/delete-product-button";
 import { Badge } from "@/components/ui/badge";
 import { getProductById, getSuppliers } from "@/lib/data";
 
@@ -41,9 +42,12 @@ export default async function EditProductPage({
 
   return (
     <div className="space-y-6">
-      <div>
-        <Badge>Edit Product</Badge>
-        <h1 className="mt-4 text-4xl font-semibold text-slate-950">{product.title}</h1>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <Badge>Edit Product</Badge>
+          <h1 className="mt-4 text-4xl font-semibold text-slate-950">{product.title}</h1>
+        </div>
+        <DeleteProductButton productId={product.id} productTitle={product.title} />
       </div>
       <ProductForm initialData={initialData} suppliers={suppliers} />
     </div>
